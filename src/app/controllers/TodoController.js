@@ -45,6 +45,31 @@ class TodoController {
       return res.status(400).json({ error: err.message });
     }
   }
+
+  async toggle (req, res) {
+    try {
+      const userId = req.userId;
+      const { id } = req.body;
+      const todo = await Todo.findById(id);
+
+      if (!todo) {
+        return res.status(400).json({ error: 'Tarefa não encontrada' });
+      }
+
+      if (todo.user != userId) {
+        return res.status(400).json({ error: 'Tarefa não pertence ao usuário logado' });
+      }
+
+      todo.done = !todo.done;
+
+      await Todo.updateOne({"_id": id}, {done: todo.done})
+
+      return res.json(todo);
+    } catch (err) {
+      return res.status(400).json({ error: err.message });
+    }
+  }
+
 }
 
 export default new TodoController();
