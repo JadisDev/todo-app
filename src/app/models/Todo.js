@@ -17,6 +17,6 @@ const TodoSchema = new mongoose.Schema(
     },
     user: mongoose.Schema.Types.ObjectId,
   }
-)
+);
 
 export default mongoose.model('Todo', TodoSchema);

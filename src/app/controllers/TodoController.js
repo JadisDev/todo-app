@@ -13,6 +13,16 @@ class TodoController {
       return res.status(400).json({ error: 'Erro ao cadastrar nova tarefa' });
     }
   }
+
+  async all (req, res) {
+    try {
+      const user = req.userId;
+      const result = await Todo.find({user});
+      return res.json(result);
+    } catch (err) {
+      return res.status(400).json({ error: 'Erro ao consultar tarefas' });
+    }
+  }
 }
 
 export default new TodoController();

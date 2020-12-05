@@ -22,5 +22,6 @@ routes.post('/api/sessions', SessionController.store);
 routes.use(authMiddleware);
 
 routes.post('/api/tasks', TodoController.store);
+routes.get('/api/tasks', TodoController.all);
 
 export default routes;
