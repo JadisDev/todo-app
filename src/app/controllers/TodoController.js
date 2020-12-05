@@ -23,6 +23,28 @@ class TodoController {
       return res.status(400).json({ error: 'Erro ao consultar tarefas' });
     }
   }
+
+  async delete (req, res) {
+    try {
+      const userId = req.userId;
+      const { id } = req.params;
+      const todo = await Todo.findById(id);
+
+      if (!todo) {
+        return res.status(400).json({ error: 'Tarefa não encontrada' });
+      }
+
+      if (todo.user != userId) {
+        return res.status(400).json({ error: 'Tarefa não pertence ao usuário logado' });
+      }
+
+      await Todo.deleteOne({"_id": id})
+
+      return res.json(id);
+    } catch (err) {
+      return res.status(400).json({ error: err.message });
+    }
+  }
 }
 
 export default new TodoController();

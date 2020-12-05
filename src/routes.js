@@ -23,5 +23,6 @@ routes.use(authMiddleware);
 
 routes.post('/api/tasks', TodoController.store);
 routes.get('/api/tasks', TodoController.all);
+routes.delete('/api/tasks/:id', TodoController.delete)
 
 export default routes;
